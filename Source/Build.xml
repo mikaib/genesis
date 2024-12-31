@@ -1,0 +1,40 @@
+<xml>
+    <pragma once="true" />
+    <set name="genesis_native" value="${haxelib:genesis}/Native" />
+
+    <echo value="GENESIS: ${genesis_native}" />
+
+    <section>
+        <files id="haxe">
+            <compilerflag value="-I${genesis_native}" />
+        </files>
+
+        <files id="__main__">
+            <compilerflag value="-I${genesis_native}" />
+        </files>
+
+        <files id="genesis">
+            <compilerflag value="-I${genesis_native}" />
+            <compilerflag value="-I${genesis_native}/glad/include" />
+            <file name="${genesis_native}/genesis.c" />
+            <file name="${genesis_native}/genesis_opengl.c" />
+            <file name="${genesis_native}/glad/src/gl.c" if="windows" />
+        </files>
+
+        <target id="haxe">
+            <compilerflag value="-I${genesis_native}" />
+            <files id="genesis" />
+        </target>
+
+        <target id="haxe" tool="linker" toolid="exe" if="windows">
+            <lib name="opengl32.lib" />
+        </target>
+
+        <linker id='exe' exe='em++' if="emscripten">
+            <flag value='-s' />
+            <flag value='WASM=1' />
+            <flag value='-sFULL_ES2' />
+            <flag value='-sUSE_SDL=2' />
+        </linker>
+    </section>
+</xml>

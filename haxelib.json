@@ -1,0 +1,12 @@
+{
+  "name": "genesis",
+  "url" : "https://github.com/mikaib/genesis",
+  "license": "MIT",
+  "tags": ["rendering", "low-level"],
+  "description": "Low level haxe rendering lib.",
+  "version": "1.0.0",
+  "classPath": "Source/",
+  "releasenote": "Experimental.",
+  "contributors": ["mikaib"],
+  "dependencies": {}
+}
