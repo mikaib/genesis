@@ -1,4 +1,5 @@
 package genesis;
+import haxe.io.Bytes;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
@@ -20,8 +21,8 @@ extern class NativeGenesis {
     @:native('gs_layout_add')
     public static function layoutAdd(layout: GsVtxLayout, index: Int, type: GsVtxAttribType, count: Int): Bool;
 
-    @:native('gs_layout_complete')
-    public static function layoutComplete(layout: GsVtxLayout): Bool;
+    @:native('gs_layout_build')
+    public static function layoutBuild(layout: GsVtxLayout): Bool;
 
     @:native('gs_init')
     public static function init(config: GsConfig): Bool;
@@ -83,6 +84,9 @@ extern class NativeGenesis {
     @:native('gs_use_buffer')
     public static function useBuffer(list: GsCommandList, buffer: GsBuffer): Void;
 
+    @:native('gs_use_texture')
+    public static function useTexture(list: GsCommandList, texture: GsTexture, slot: Int): Void;
+
     @:native('gs_frame')
     public static function frame(): Void;
 
@@ -106,18 +110,18 @@ extern class NativeGenesis {
 
     @:native('gs_buffer_set_data')
     private static function nativeBufferSetData(buffer: GsBuffer, data: cpp.Star<cpp.Void>, size: Int): Void;
-    public static inline function bufferSetData(buffer: GsBuffer, data: GsManagedBufferData): Void {
+    public static inline function bufferSetData(buffer: GsBuffer, data: GsManagedData): Void {
         nativeBufferSetData(buffer, data.getPtr(), data.getSize());
     }
 
     @:native('gs_buffer_set_partial_data')
     private static function nativeBufferSetPartialData(buffer: GsBuffer, data: cpp.Star<cpp.Void>, size: Int, offset: Int): Void;
-    public static inline function bufferSetPartialData(buffer: GsBuffer, data: GsManagedBufferData, offset: Int): Void {
+    public static inline function bufferSetPartialData(buffer: GsBuffer, data: GsManagedData, offset: Int): Void {
         nativeBufferSetPartialData(buffer, data.getPtr(), data.getSize(), offset);
     }
 
     @:native('gs_destroy_unmanaged_buffer_data')
-    public static function destroyUnmanagedBufferData(data: GsUnmanagedBufferData): Void;
+    public static function destroyUnmanagedBufferData(data: GsUnmanagedData): Void;
 
     @:native('gs_draw_arrays')
     public static function drawArrays(list: GsCommandList, start: Int, count: Int): Void;
@@ -143,8 +147,8 @@ extern class NativeGenesis {
     @:native('gs_program_attach_shader')
     public static function programAttachShader(program: GsProgram, shader: GsShader): Void;
 
-    @:native('gs_program_complete')
-    public static function programComplete(program: GsProgram): Bool;
+    @:native('gs_program_build')
+    public static function programBuild(program: GsProgram): Bool;
 
     @:native('gs_destroy_program')
     public static function destroyProgram(program: GsProgram): Void;
@@ -158,6 +162,31 @@ extern class NativeGenesis {
     @:native('gs_stop_mainloop')
     public static function stopMainloop(): Void;
 
+    @:native('gs_create_texture')
+    public static function createTexture(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture;
+
+    @:native('gs_create_cubemap')
+    public static function createCubemap(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, wrapR: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture;
+
+    @:native('gs_texture_set_data')
+    private static function nativeTextureSetData(texture: GsTexture, data: cpp.Star<cpp.Void>): Void;
+    public static inline function textureSetData(texture: GsTexture, data: Bytes): Void {
+        final ptr: cpp.Pointer<cpp.Void> = cpp.Pointer.arrayElem(data.getData(), 0).reinterpret();
+        nativeTextureSetData(texture, ptr.ptr);
+    }
+
+    @:native('gs_texture_set_face_data')
+    private static function nativeTextureSetFaceData(texture: GsTexture, face: GsCubemapFace, data: cpp.Star<cpp.Void>): Void;
+    public static inline function textureSetFaceData(texture: GsTexture, face: GsCubemapFace, data: Bytes): Void {
+        final ptr: cpp.Pointer<cpp.Void> = cpp.Pointer.arrayElem(data.getData(), 0).reinterpret();
+        nativeTextureSetFaceData(texture, face, ptr.ptr);
+    }
+
+    @:native('gs_texture_generate_mipmaps')
+    public static function textureGenerateMipmaps(texture: GsTexture): Void;
+
+    @:native('gs_destroy_texture')
+    public static function destroyTexture(texture: GsTexture): Void;
 }
 
 typedef Genesis = NativeGenesis;

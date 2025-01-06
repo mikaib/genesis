@@ -9,11 +9,11 @@ private extern class NativeGsBuffer {
     public var type: GsBufferType;
     public var intent: GsBufferIntent;
 
-    inline public function setData(data: GsManagedBufferData): Void {
+    inline public function setData(data: GsManagedData): Void {
         Genesis.bufferSetData(this, data);
     }
 
-    inline public function setPartialData(data: GsManagedBufferData, offset: Int): Void {
+    inline public function setPartialData(data: GsManagedData, offset: Int): Void {
         Genesis.bufferSetPartialData(this, data, offset);
     }
 

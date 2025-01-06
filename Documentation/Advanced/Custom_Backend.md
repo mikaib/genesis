@@ -10,16 +10,18 @@ After you've done this you need to start by making a "create" function for your 
 GsBackend *gs_gl460_create() {
     GsBackend *backend = GS_ALLOC(GsBackend);
     backend->type = GS_BACKEND_GL460;
+    
     backend->init = gs_gl460_init;
     backend->shutdown = gs_gl460_shutdown;
     backend->submit = gs_gl460_submit;
+    // ... etc ... 
 
     return backend;
 }
 ```
 
 This function creates a `GsBackend` object and sets the type to `GS_BACKEND_GL460`.  
-After which it sets the `init`, `shutdown` and `submit` functions to the functions that are defined in the GL4.6 backend.  
+After which it sets the `init`, `shutdown` and `submit` functions to the functions that are defined in the OpenGL backend.  
 This document may not be frequently updated, so please refer to the source code for the most up-to-date information.
 
 ## Using the Backend

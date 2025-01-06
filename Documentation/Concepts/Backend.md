@@ -12,10 +12,9 @@ The backends that are available are:
 The backend can be set in the `GsConfig` object, you may also use `Genesis.getOptimalBackendType()` to get the optimal backend that is available on the system.
 
 ## Backend Support Matrix
-|  Backend   | Windows | Linux  | MacOS | Android | iOS | Web |
-|:----------:|:-------:|:------:|:-----:|:-------:|:---:|:---:|
-| OpenGL 4.6 |   ✅    |   ❌   |  ❌   |   ❌    | ❌  | ❌  |
-| OpenGL ES 2.0 |  ❌    |   ❌   |  ❌   |   ❌    | ❌  | ✅  |
+|    Backend    | Windows | Linux  | MacOS | Android | iOS | Web |
+|:-------------:|:-------:|:------:|:-----:|:-------:|:---:|:---:|
+|    OpenGL     |   ✅    |   ❌   |  ❌   |   ❌    | ❌  | ✅  |
 
 ## Notes
 - You will need to manually destroy the `GsBackend` object after you are done with it.

@@ -13,6 +13,10 @@
             <compilerflag value="-I${genesis_native}" />
         </files>
 
+        <files id="__lib__">
+            <compilerflag value="-I${genesis_native}" />
+        </files>
+
         <files id="genesis">
             <compilerflag value="-I${genesis_native}" />
             <compilerflag value="-I${genesis_native}/glad/include" />

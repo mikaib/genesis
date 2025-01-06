@@ -16,8 +16,8 @@ private extern class NativeGsVtxLayout {
         return this;
     }
 
-    inline public function complete(): Void {
-        Genesis.layoutComplete(this);
+    inline public function build(): Void {
+        Genesis.layoutBuild(this);
     }
 
     inline public function destroy(): Void{

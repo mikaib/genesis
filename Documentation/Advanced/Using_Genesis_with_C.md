@@ -13,7 +13,7 @@ To import the library, you need to include the header file:
 
 If you need access to the backend-specific functions, you can include the backend-specific header file, for OpenGL 4.6 this would be:
 ```c
-#include <genesis_gl460.h>
+#include <genesis_opengl.h>
 ```
 
 ## Similarities
@@ -28,8 +28,8 @@ config.backend = backend;
 Would look like this in C:
 ```c
 GsConfig* config = gs_create_config();
-config->backend = backend;
 config->window = getHWND(window);
+config->backend = backend;
 ```
 
 ## Differences

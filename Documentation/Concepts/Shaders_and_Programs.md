@@ -23,7 +23,15 @@ If you understand the basics of GLSL, you can look at some examples on [Shaderto
 **WORK IN PROGRESS** `This section is not complete yet.`
 
 ## Program
-**WORK IN PROGRESS** `This section is not complete yet.`
+A Program is a collection of shaders that are linked together. Setting them up is simple:
+```hx
+var program = Genesis.createProgram();
+program.attachShader(vertexShader);
+program.attachShader(fragmentShader);
+program.build();
+```
+
+After building the program, you can use it in the pipeline.
 
 ## Uniform Buffer Objects
 **WORK IN PROGRESS** `This section is not complete yet.`

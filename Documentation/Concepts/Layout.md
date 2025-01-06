@@ -19,6 +19,7 @@ The layout describes how the data is structured in the vertex buffer. Creating a
 layout = Genesis.createLayout();
 layout.add(0, GS_ATTRIB_TYPE_FLOAT, 3);  // position
 layout.add(1, GS_ATTRIB_TYPE_FLOAT, 4);  // color
+layout.build()
 ```
 
 This sample first creates a layout object and then adds two attributes to it:  

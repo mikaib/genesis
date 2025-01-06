@@ -5,7 +5,7 @@ package genesis;
 @:native('GsUnmanagedBufferData')
 @:unreflective
 @:structAccess
-private extern class NativeGsUnmanagedBufferData {
+private extern class NativeGsUnmanagedData {
     public var data: cpp.Star<cpp.Void>;
     public var size: Int;
 
@@ -14,4 +14,4 @@ private extern class NativeGsUnmanagedBufferData {
     }
 }
 
-typedef GsUnmanagedBufferData = cpp.Star<NativeGsUnmanagedBufferData>;
+typedef GsUnmanagedData = cpp.Star<NativeGsUnmanagedData>;

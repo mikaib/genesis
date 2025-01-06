@@ -27,15 +27,14 @@ You can also partially set data:
 buffer.setPartialData(data, size, offset);
 ```
 
-These functions expect `GsManagedBufferData` for the data, which is an abstract that supports:
+These functions expect `GsManagedData` for the data, which is an abstract that supports:
 - `Array<cpp.Float32>`: For float data.
 - `Array<Int>`: For integer data.
-- `Bytes`: For raw data.
 
 This type will only point to the data and will not copy it by itself.  
 Only when you call `setData` or `setPartialData` will the data be copied to the buffer (on the GPU).  
 
-`GsManagedBufferData` does not support `Array<Float>`, this is because a cast to `Array<cpp.Float32>` is required which copies the data.
+`GsManagedData` does not support `Array<Float>`, this is because a cast to `Array<cpp.Float32>` is required which copies the data.
 
 ## Buffer Types
 There are currently two types of buffers in Genesis:
@@ -58,7 +57,7 @@ Note that the intents may be completely ignored and is only a hint.
 
 ## Notes
 - You will need to manually destroy the `GsBuffer` object after you are done with it.
-- You will need to manually destroy the `GsUnmanagedBufferData` object after you are done with it.
-- `GsManagedBufferData` only points to the data it was created with and will not copy it by itself, there is no need to destroy it.
+- You will need to manually destroy the `GsUnmanagedData` object after you are done with it.
+- `GsManagedData` only points to the data it was created with and will not copy it by itself, there is no need to destroy it.
 - The buffer is currently not thread-safe. Using it from a different thread may result in undefined behavior.
 - The intent is only a hint and may be ignored by the backend (or the driver the backend uses).

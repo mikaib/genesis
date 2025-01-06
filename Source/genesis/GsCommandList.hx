@@ -48,6 +48,11 @@ private extern class NativeGsCommandList {
         return this;
     }
 
+    inline public function useTexture(texture: GsTexture, slot: Int): GsCommandList {
+        Genesis.useTexture(this, texture, slot);
+        return this;
+    }
+
     inline public function drawArrays(start: Int, count: Int): GsCommandList {
         Genesis.drawArrays(this, start, count);
         return this;

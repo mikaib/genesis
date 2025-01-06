@@ -13,8 +13,8 @@ private extern class NativeGsProgram {
         Genesis.programAttachShader(this, shader);
     }
 
-    inline public function complete(): Void {
-        Genesis.programComplete(this);
+    inline public function build(): Void {
+        Genesis.programBuild(this);
     }
 
     inline public function destroy(): Void {
