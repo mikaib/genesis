@@ -3,7 +3,7 @@ import haxe.io.Bytes;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-extern class NativeGenesis {
+extern class Genesis {
 
     @:native('GS_VERSION_MAJOR')
     public static var versionMajor: Int;
@@ -187,6 +187,26 @@ extern class NativeGenesis {
 
     @:native('gs_destroy_texture')
     public static function destroyTexture(texture: GsTexture): Void;
-}
 
-typedef Genesis = NativeGenesis;
+    @:native('gs_get_uniform_location')
+    public static function getUniformLocation(program: GsProgram, name: cpp.ConstCharStar): GsUniformLocation;
+
+    @:native('gs_uniform_set_int')
+    public static function uniformSetInt(list: GsCommandList, location: GsUniformLocation, value: Int): Void;
+
+    @:native('gs_uniform_set_float')
+    public static function uniformSetFloat(list: GsCommandList, location: GsUniformLocation, value: cpp.Float32): Void;
+
+    @:native('gs_uniform_set_vec2')
+    public static function uniformSetVec2(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32): Void;
+
+    @:native('gs_uniform_set_vec3')
+    public static function uniformSetVec3(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32, z: cpp.Float32): Void;
+
+    @:native('gs_uniform_set_vec4')
+    public static function uniformSetVec4(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32, z: cpp.Float32, w: cpp.Float32): Void;
+
+    @:native('gs_uniform_set_mat4')
+    public static function uniformSetMat4(list: GsCommandList, location: GsUniformLocation, m00: cpp.Float32, m01: cpp.Float32, m02: cpp.Float32, m03: cpp.Float32, m10: cpp.Float32, m11: cpp.Float32, m12: cpp.Float32, m13: cpp.Float32, m20: cpp.Float32, m21: cpp.Float32, m22: cpp.Float32, m23: cpp.Float32, m30: cpp.Float32, m31: cpp.Float32, m32: cpp.Float32, m33: cpp.Float32): Void;
+
+}

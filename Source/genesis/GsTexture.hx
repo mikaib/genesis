@@ -29,6 +29,10 @@ private extern class NativeGsTexture {
         Genesis.textureSetFaceData(this, face, data);
     }
 
+    inline public function generateMipmaps(): Void {
+        Genesis.textureGenerateMipmaps(this);
+    }
+
 }
 
 typedef GsTexture = cpp.Star<NativeGsTexture>;

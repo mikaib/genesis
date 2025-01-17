@@ -20,6 +20,11 @@ private extern class NativeGsProgram {
     inline public function destroy(): Void {
         Genesis.destroyProgram(this);
     }
+
+    inline public function getUniformLocation(name: String): GsUniformLocation {
+        return Genesis.getUniformLocation(this, name);
+    }
+
 }
 
 typedef GsProgram = cpp.Star<NativeGsProgram>;
