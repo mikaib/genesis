@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="HAXE_MODULE" version="4">
   <component name="HaxeModuleSettingsStorage">
-    <option name="outputFolder" value="$MODULE_DIR$/../project-intellij/out/production/genesis" />
+    <option name="buildConfig" value="1" />
+    <option name="outputFolder" value="$MODULE_DIR$/../../osu-rec/out/production/genesis" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />

@@ -10,6 +10,7 @@ private extern class NativeGsTexture {
     public var width: Int;
     public var height: Int;
     public var format: GsTextureFormat;
+    public var lodBias: cpp.Float32;
     public var wrap_s: GsTextureWrap;
     public var wrap_t: GsTextureWrap;
     public var wrap_r: GsTextureWrap;
