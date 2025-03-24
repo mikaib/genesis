@@ -1,0 +1,6 @@
+-L linc_glfw
+-L genesis
+-D HXCPP_DEBUG_LINK
+-cpp Binary
+-cp Source
+-main Main

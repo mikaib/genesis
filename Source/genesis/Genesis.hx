@@ -183,7 +183,7 @@ extern class Genesis {
     }
 
     @:native('gs_texture_generate_mipmaps')
-    public static function textureGenerateMipmaps(texture: GsTexture): Void;
+    public static function textureGenerateMipmaps(texture: GsTexture): Void; // As immediate command
 
     @:native('gs_destroy_texture')
     public static function destroyTexture(texture: GsTexture): Void;
@@ -209,4 +209,15 @@ extern class Genesis {
     @:native('gs_uniform_set_mat4')
     public static function uniformSetMat4(list: GsCommandList, location: GsUniformLocation, m00: cpp.Float32, m01: cpp.Float32, m02: cpp.Float32, m03: cpp.Float32, m10: cpp.Float32, m11: cpp.Float32, m12: cpp.Float32, m13: cpp.Float32, m20: cpp.Float32, m21: cpp.Float32, m22: cpp.Float32, m23: cpp.Float32, m30: cpp.Float32, m31: cpp.Float32, m32: cpp.Float32, m33: cpp.Float32): Void;
 
+    @:native('gs_copy_texture')
+    public static function copyTexture(list: GsCommandList, src: GsTexture, dst: GsTexture): Void;
+
+    @:native('gs_resolve_texture')
+    public static function resolveTexture(list: GsCommandList, src: GsTexture, dst: GsTexture): Void;
+
+    @:native('gs_copy_texture_partial')
+    public static function copyTexturePartial(list: GsCommandList, src: GsTexture, dst: GsTexture, srcX: Int, srcY: Int, dstX: Int, dstY: Int, width: Int, height: Int): Void;
+
+    @:native('gs_generate_mipmaps') // As command
+    public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void;
 }

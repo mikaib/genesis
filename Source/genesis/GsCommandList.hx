@@ -120,6 +120,26 @@ private extern class NativeGsCommandList {
         return this;
     }
 
+    inline public function copyTexture(src: GsTexture, dst: GsTexture): GsCommandList {
+        Genesis.copyTexture(this, src, dst);
+        return this;
+    }
+
+    inline public function resolveTexture(src: GsTexture, dst: GsTexture): GsCommandList {
+        Genesis.resolveTexture(this, src, dst);
+        return this;
+    }
+
+    inline public function copyTexturePartial(src: GsTexture, dst: GsTexture, srcX: Int, srcY: Int, dstX: Int, dstY: Int, width: Int, height: Int): GsCommandList {
+        Genesis.copyTexturePartial(this, src, dst, srcX, srcY, dstX, dstY, width, height);
+        return this;
+    }
+
+    inline public function generateMipmaps(texture: GsTexture): GsCommandList {
+        Genesis.generateMipmaps(this, texture);
+        return this;
+    }
+
     inline public function destroy(): Void {
         Genesis.destroyCommandList(this);
     }
