@@ -3,7 +3,11 @@ import haxe.io.Bytes;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
+#if (GS_STUB)
+extern class NativeGenesis {
+#else
 extern class Genesis {
+#end
 
     @:native('GS_VERSION_MAJOR')
     public static var versionMajor: Int;
@@ -22,7 +26,7 @@ extern class Genesis {
     public static function layoutAdd(layout: GsVtxLayout, index: Int, type: GsVtxAttribType, count: Int): Bool;
 
     @:native('gs_layout_build')
-    public static function layoutBuild(layout: GsVtxLayout): Bool;
+    public static function layoutBuild(layout: GsVtxLayout): Void;
 
     @:native('gs_init')
     public static function init(config: GsConfig): Bool;
@@ -148,7 +152,7 @@ extern class Genesis {
     public static function programAttachShader(program: GsProgram, shader: GsShader): Void;
 
     @:native('gs_program_build')
-    public static function programBuild(program: GsProgram): Bool;
+    public static function programBuild(program: GsProgram): Void;
 
     @:native('gs_destroy_program')
     public static function destroyProgram(program: GsProgram): Void;
@@ -164,6 +168,10 @@ extern class Genesis {
 
     @:native('gs_create_texture')
     public static function createTexture(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture;
+
+    public static inline function createTextureSimple(width: Int, height: Int, format: GsTextureFormat): GsTexture {
+        return createTexture(width, height, format, GS_TEXTURE_WRAP_CLAMP, GS_TEXTURE_WRAP_CLAMP, GS_TEXTURE_FILTER_LINEAR, GS_TEXTURE_FILTER_LINEAR);
+    }
 
     @:native('gs_create_cubemap')
     public static function createCubemap(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, wrapR: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture;
@@ -221,3 +229,260 @@ extern class Genesis {
     @:native('gs_generate_mipmaps') // As command
     public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void;
 }
+
+#if (GS_STUB)
+class _Genesis {
+    public static function layoutAdd(layout: GsVtxLayout, index: Int, type: GsVtxAttribType, count: Int): Bool {
+        return NativeGenesis.layoutAdd(layout, index, type, count);
+    }
+
+    public static function layoutBuild(layout: GsVtxLayout): Void {
+        NativeGenesis.layoutBuild(layout);
+    }
+
+    public static function init(config: GsConfig): Bool {
+        return NativeGenesis.init(config);
+    }
+
+    public static function shutdown(): Void {
+        NativeGenesis.shutdown();
+    }
+
+    public static function createConfig(): GsConfig {
+        return NativeGenesis.createConfig();
+    }
+
+    public static function createBackend(type: GsBackendType): GsBackend {
+        return NativeGenesis.createBackend(type);
+    }
+
+    public static function createLayout(): GsVtxLayout {
+        return NativeGenesis.createLayout();
+    }
+
+    public static function destroyConfig(config: GsConfig): Void {
+        NativeGenesis.destroyConfig(config);
+    }
+
+    public static function destroyBackend(backend: GsBackend): Void {
+        NativeGenesis.destroyBackend(backend);
+    }
+
+    public static function destroyLayout(layout: GsVtxLayout): Void {
+        NativeGenesis.destroyLayout(layout);
+    }
+
+    public static function getOptimalBackendType(): GsBackendType {
+        return NativeGenesis.getOptimalBackendType();
+    }
+
+    public static function createCommandList(): GsCommandList {
+        return NativeGenesis.createCommandList();
+    }
+
+    public static function destroyCommandList(list: GsCommandList): Void {
+        NativeGenesis.destroyCommandList(list);
+    }
+
+    public static function commandListClear(list: GsCommandList): Void {
+        NativeGenesis.commandListClear(list);
+    }
+
+    public static function commandListBegin(list: GsCommandList): Void {
+        NativeGenesis.commandListBegin(list);
+    }
+
+    public static function commandListEnd(list: GsCommandList): Void {
+        NativeGenesis.commandListEnd(list);
+    }
+
+    public static function commandListSubmit(list: GsCommandList): Void {
+        NativeGenesis.commandListSubmit(list);
+    }
+
+    public static function clear(list: GsCommandList, flags: GsClearFlags, r: Float, g: Float, b: Float, a: Float): Void {
+        NativeGenesis.clear(list, flags, r, g, b, a);
+    }
+
+    public static function setViewport(list: GsCommandList, x: Int, y: Int, width: Int, height: Int): Void {
+        NativeGenesis.setViewport(list, x, y, width, height);
+    }
+
+    public static function usePipeline(list: GsCommandList, pipeline: GsPipeline): Void {
+        NativeGenesis.usePipeline(list, pipeline);
+    }
+
+    public static function useBuffer(list: GsCommandList, buffer: GsBuffer): Void {
+        NativeGenesis.useBuffer(list, buffer);
+    }
+
+    public static function useTexture(list: GsCommandList, texture: GsTexture, slot: Int): Void {
+        NativeGenesis.useTexture(list, texture, slot);
+    }
+
+    public static function frame(): Void {
+        NativeGenesis.frame();
+    }
+
+    public static function discardFrame(): Void {
+        NativeGenesis.discardFrame();
+    }
+
+    public static function createPipeline(): GsPipeline {
+        return NativeGenesis.createPipeline();
+    }
+
+    public static function destroyPipeline(pipeline: GsPipeline): Void {
+        NativeGenesis.destroyPipeline(pipeline);
+    }
+
+    public static function pipelineSetLayout(pipeline: GsPipeline, layout: GsVtxLayout): Void {
+        NativeGenesis.pipelineSetLayout(pipeline, layout);
+    }
+
+    public static function createBuffer(type: GsBufferType, intent: GsBufferIntent): GsBuffer {
+        return NativeGenesis.createBuffer(type, intent);
+    }
+
+    public static function destroyBuffer(buffer: GsBuffer): Void {
+        NativeGenesis.destroyBuffer(buffer);
+    }
+
+    public static function bufferSetData(buffer: GsBuffer, data: GsManagedData): Void {
+        NativeGenesis.bufferSetData(buffer, data);
+    }
+
+    public static function bufferSetPartialData(buffer: GsBuffer, data: GsManagedData, offset: Int): Void {
+        NativeGenesis.bufferSetPartialData(buffer, data, offset);
+    }
+
+    public static function destroyUnmanagedBufferData(data: GsUnmanagedData): Void {
+        NativeGenesis.destroyUnmanagedBufferData(data);
+    }
+
+    public static function drawArrays(list: GsCommandList, start: Int, count: Int): Void {
+        NativeGenesis.drawArrays(list, start, count);
+    }
+
+    public static function drawIndexed(list: GsCommandList, count: Int): Void {
+        NativeGenesis.drawIndexed(list, count);
+    }
+
+    public static function setScissor(list: GsCommandList, x: Int, y: Int, width: Int, height: Int): Void {
+        NativeGenesis.setScissor(list, x, y, width, height);
+    }
+
+    public static function disableScissor(list: GsCommandList): Void {
+        NativeGenesis.disableScissor(list);
+    }
+
+    public static function createShader(type: GsShaderType, source: cpp.ConstCharStar): GsShader {
+        return NativeGenesis.createShader(type, source);
+    }
+
+    public static function destroyShader(shader: GsShader): Void {
+        NativeGenesis.destroyShader(shader);
+    }
+
+    public static function createProgram(): GsProgram {
+        return NativeGenesis.createProgram();
+    }
+
+    public static function programAttachShader(program: GsProgram, shader: GsShader): Void {
+        NativeGenesis.programAttachShader(program, shader);
+    }
+
+    public static function programBuild(program: GsProgram) {
+        NativeGenesis.programBuild(program);
+    }
+
+    public static function destroyProgram(program: GsProgram): Void {
+        NativeGenesis.destroyProgram(program);
+    }
+
+    private static function _createMainloop(fn: cpp.Callable<Void->Void>): Void {
+        @:privateAccess NativeGenesis._createMainloop(fn);
+    }
+
+    public static function startMainloop(fn: Void->Void): Void {
+        NativeGenesis.startMainloop(fn);
+    }
+
+    public static function stopMainloop(): Void {
+        NativeGenesis.stopMainloop();
+    }
+
+    public static function createTexture(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture {
+        return NativeGenesis.createTexture(width, height, format, wrapS, wrapT, min, mag);
+    }
+
+    public static function createTextureSimple(width: Int, height: Int, format: GsTextureFormat): GsTexture {
+        return NativeGenesis.createTextureSimple(width, height, format);
+    }
+
+    public static function createCubemap(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, wrapR: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture {
+        return NativeGenesis.createCubemap(width, height, format, wrapS, wrapT, wrapR, min, mag);
+    }
+
+    public static function textureSetData(texture: GsTexture, data: Bytes): Void {
+        NativeGenesis.textureSetData(texture, data);
+    }
+
+    public static function textureSetFaceData(texture: GsTexture, face: GsCubemapFace, data: Bytes): Void {
+        NativeGenesis.textureSetFaceData(texture, face, data);
+    }
+
+    public static function textureGenerateMipmaps(texture: GsTexture): Void {
+        NativeGenesis.textureGenerateMipmaps(texture);
+    }
+
+    public static function destroyTexture(texture: GsTexture): Void {
+        NativeGenesis.destroyTexture(texture);
+    }
+
+    public static function getUniformLocation(program: GsProgram, name: cpp.ConstCharStar): GsUniformLocation {
+        return NativeGenesis.getUniformLocation(program, name);
+    }
+
+    public static function uniformSetInt(list: GsCommandList, location: GsUniformLocation, value: Int): Void {
+        NativeGenesis.uniformSetInt(list, location, value);
+    }
+
+    public static function uniformSetFloat(list: GsCommandList, location: GsUniformLocation, value: cpp.Float32): Void {
+        NativeGenesis.uniformSetFloat(list, location, value);
+    }
+
+    public static function uniformSetVec2(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32): Void {
+        NativeGenesis.uniformSetVec2(list, location, x, y);
+    }
+
+    public static function uniformSetVec3(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32, z: cpp.Float32): Void {
+        NativeGenesis.uniformSetVec3(list, location, x, y, z);
+    }
+
+    public static function uniformSetVec4(list: GsCommandList, location: GsUniformLocation, x: cpp.Float32, y: cpp.Float32, z: cpp.Float32, w: cpp.Float32): Void {
+        NativeGenesis.uniformSetVec4(list, location, x, y, z, w);
+    }
+
+    public static function uniformSetMat4(list: GsCommandList, location: GsUniformLocation, m00: cpp.Float32, m01: cpp.Float32, m02: cpp.Float32, m03: cpp.Float32, m10: cpp.Float32, m11: cpp.Float32, m12: cpp.Float32, m13: cpp.Float32, m20: cpp.Float32, m21: cpp.Float32, m22: cpp.Float32, m23: cpp.Float32, m30: cpp.Float32, m31: cpp.Float32, m32: cpp.Float32, m33: cpp.Float32): Void {
+        NativeGenesis.uniformSetMat4(list, location, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+    }
+
+    public static function copyTexture(list: GsCommandList, src: GsTexture, dst: GsTexture): Void {
+        NativeGenesis.copyTexture(list, src, dst);
+    }
+
+    public static function resolveTexture(list: GsCommandList, src: GsTexture, dst: GsTexture): Void {
+        NativeGenesis.resolveTexture(list, src, dst);
+    }
+
+    public static function copyTexturePartial(list: GsCommandList, src: GsTexture, dst: GsTexture, srcX: Int, srcY: Int, dstX: Int, dstY: Int, width: Int, height: Int): Void {
+        NativeGenesis.copyTexturePartial(list, src, dst, srcX, srcY, dstX, dstY, width, height);
+    }
+
+    public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void {
+        NativeGenesis.generateMipmaps(list, texture);
+    }
+}
+typedef Genesis = _Genesis;
+#end

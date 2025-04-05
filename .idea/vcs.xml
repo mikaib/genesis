@@ -3,7 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Native" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Native/glslang" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Native/spirvc" vcs="Git" />
   </component>
 </project>

@@ -9,41 +9,59 @@ import genesis.GsProgram;
 import genesis.GsVtxLayout;
 import genesis.GsPipeline;
 import genesis.GsBuffer;
+import genesis.GsTexture;
+import genesis.GsTextureFilter;
+import genesis.GsTextureWrap;
+import haxe.io.Bytes;
+import genesis.GsUniformLocation;
+import stb.Image;
 
 class Main {
 
     public var vertexData: Array<cpp.Float32> = [
-        // x,    y,   z,   r,   g,   b,   a
-         0.0,  0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
-        -0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
-         0.5, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0
+        // x,    y,   z,   u,  v
+        -0.5, -0.5, 0.0, 0.0, 1.0,
+         0.5, -0.5, 0.0, 1.0, 1.0,
+         0.5,  0.5, 0.0, 1.0, 0.0,
+        -0.5,  0.5, 0.0, 0.0, 0.0
     ];
 
     public var indexData: Array<Int> = [
-        0, 1, 2
+        0, 1, 2,
+        2, 3, 0
     ];
 
     public var vertexShaderSource: String = "
         #version 460 core
 
         layout(location = 0) in vec3 aPosition;
-        layout(location = 1) in vec4 aColour;
-        out vec4 vColour;
+        layout(location = 1) in vec2 aTexCoord;
+        uniform int uTime;
+        out vec2 vTexCoord;
 
         void main() {
             gl_Position = vec4(aPosition, 1.0);
-            vColour = aColour;
+
+            float angle = -float(uTime) / 1000.0;
+            float cosAngle = cos(angle);
+            float sinAngle = sin(angle);
+
+            gl_Position.x = aPosition.x * cosAngle - aPosition.y * sinAngle;
+            gl_Position.y = aPosition.x * sinAngle + aPosition.y * cosAngle;
+
+            vTexCoord = aTexCoord;
         }
     ";
 
     public var fragmentShaderSource: String = "
         #version 460 core
 
-        in vec4 vColour;
+        uniform sampler2D uTexture;
+        in vec2 vTexCoord;
         out vec4 fragColor;
 
         void main() {
-            fragColor = vColour;
+            fragColor = texture(uTexture, vTexCoord);
         }
     ";
 
@@ -58,6 +76,9 @@ class Main {
     public var fragmentShader: GsShader;
     public var vertexBuffer: GsBuffer;
     public var indexBuffer: GsBuffer;
+    public var textureUniform: GsUniformLocation;
+    public var timeUniform: GsUniformLocation;
+    public var texture: GsTexture;
 
     public function initWindow() {
         GLFW.glfwInit();
@@ -70,7 +91,7 @@ class Main {
         GLFW.glfwInit();
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, 0);
 
-        window = GLFW.glfwCreateWindow(600, 600, "Genesis [1 - Hello Triangle]", null, null);
+        window = GLFW.glfwCreateWindow(600, 600, "Genesis [2 - Textured Quad]", null, null);
         if (window == null) {
             GLFW.glfwTerminate();
             return;
@@ -110,7 +131,7 @@ class Main {
         // layout
         layout = Genesis.createLayout();
         layout.add(0, GS_ATTRIB_TYPE_FLOAT, 3);  // position
-        layout.add(1, GS_ATTRIB_TYPE_FLOAT, 4);  // color
+        layout.add(1, GS_ATTRIB_TYPE_FLOAT, 2);  // uv
         layout.build();
 
         // pipeline
@@ -126,6 +147,16 @@ class Main {
         // index buffer
         indexBuffer = Genesis.createBuffer(GS_BUFFER_TYPE_INDEX, GS_BUFFER_INTENT_DRAW_STATIC);
         indexBuffer.setData(indexData);
+
+        // uniforms
+        textureUniform = program.getUniformLocation("uTexture");
+        timeUniform = program.getUniformLocation("uTime");
+
+        // texture
+        var imgData = Image.load("image.png", 4);
+        texture = Genesis.createTextureSimple(imgData.w, imgData.h, GS_TEXTURE_FORMAT_RGBA8); // You can use `createTexture` for more options, or you may modify the texture struct before calling setData
+        texture.setData(Bytes.ofData(imgData.bytes));
+        texture.generateMipmaps();
     }
 
     public function destroyGraphics() {
@@ -149,32 +180,37 @@ class Main {
 
     public function frame() {
         commandList.begin();
+        commandList.setInt(textureUniform, 0);
+        commandList.setInt(timeUniform, Std.int(Sys.time() * 1000));
         commandList.setViewport(0, 0, 600, 600);
         commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
         commandList.usePipeline(pipeline);
         commandList.useBuffer(vertexBuffer);
         commandList.useBuffer(indexBuffer);
-        commandList.drawIndexed(3);
+        commandList.useTexture(texture, 0);
+        commandList.drawIndexed(6);
         commandList.end();
         commandList.submit();
+    }
+
+    public function loop(): Void {
+        if (GLFW.glfwWindowShouldClose(window) == 1) {
+            destroy();
+            return;
+        }
+
+        frame();
+
+        Genesis.frame();
+        GLFW.glfwSwapBuffers(window);
+        GLFW.glfwPollEvents();
     }
 
     public function init() {
         initWindow();
         initGraphics();
 
-        Genesis.startMainloop(() -> {
-            if (GLFW.glfwWindowShouldClose(window) == 1) {
-                destroy();
-                return;
-            }
-
-            frame();
-
-            Genesis.frame();
-            GLFW.glfwSwapBuffers(window);
-            GLFW.glfwPollEvents();
-        });
+        Genesis.startMainloop(loop);
     }
 
     public function destroy() {

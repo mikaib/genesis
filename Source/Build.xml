@@ -38,7 +38,8 @@
             <flag value='-s' />
             <flag value='WASM=1' />
             <flag value='-sFULL_ES2' />
-            <flag value='-sUSE_SDL=2' />
+            <flag value='-sUSE_SDL=2' if="GS_EMSCRIPTEN_SDL2"/>
+            <flag value="-sUSE_GLFW=3" if="GS_EMSCRIPTEN_GLFW" />
         </linker>
     </section>
 </xml>

@@ -1,4 +1,5 @@
 -L linc_glfw
+-L linc_stb
 -L genesis
 
 -D HXCPP_DEBUG_LINK

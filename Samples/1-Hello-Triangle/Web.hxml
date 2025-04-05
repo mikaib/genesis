@@ -1,0 +1,11 @@
+-L linc_glfw
+-L genesis
+
+-D emscripten
+-D EMSCRIPTEN_SDK=D:/eeeeeee/emsdk
+-D GS_EMSCRIPTEN_GLFW
+-D HXCPP_LINK_EMSCRIPTEN_EXT=.html
+
+-cpp Binary/web
+-cp Source
+-main Main
