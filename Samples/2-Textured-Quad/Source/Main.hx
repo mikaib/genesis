@@ -161,6 +161,7 @@ class Main {
 
     public function destroyGraphics() {
         // destroy resources
+        texture.destroy();
         commandList.destroy();
         pipeline.destroy();
         layout.destroy();
@@ -180,11 +181,11 @@ class Main {
 
     public function frame() {
         commandList.begin();
-        commandList.setInt(textureUniform, 0);
-        commandList.setInt(timeUniform, Std.int(Sys.time() * 1000));
         commandList.setViewport(0, 0, 600, 600);
         commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
         commandList.usePipeline(pipeline);
+        commandList.setInt(textureUniform, 0);
+        commandList.setInt(timeUniform, Std.int(Sys.time() * 1000));
         commandList.useBuffer(vertexBuffer);
         commandList.useBuffer(indexBuffer);
         commandList.useTexture(texture, 0);

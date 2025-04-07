@@ -190,6 +190,9 @@ extern class Genesis {
         nativeTextureSetFaceData(texture, face, ptr.ptr);
     }
 
+    @:native('gs_texture_clear')
+    public static function textureClear(texture: GsTexture): Void;
+
     @:native('gs_texture_generate_mipmaps')
     public static function textureGenerateMipmaps(texture: GsTexture): Void; // As immediate command
 
@@ -228,9 +231,25 @@ extern class Genesis {
 
     @:native('gs_generate_mipmaps') // As command
     public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void;
+
+    @:native('gs_use_framebuffer')
+    public static function useFramebuffer(list: GsCommandList, fb: GsFramebuffer): Void;
+
+    @:native('gs_has_capability')
+    public static function hasCapability(cap: GsCapability): Int;
+
+    @:native('gs_create_framebuffer')
+    public static function createFramebuffer(width: Int, height: Int): GsFramebuffer;
+
+    @:native('gs_destroy_framebuffer')
+    public static function destroyFramebuffer(fb: GsFramebuffer): Void;
+
+    @:native('gs_framebuffer_attach_texture')
+    public static function framebufferAttachTexture(fb: GsFramebuffer, texture: GsTexture, attachment: GsFramebufferAttachmentType): Void;
 }
 
 #if (GS_STUB)
+@:unreflective
 class _Genesis {
     public static function layoutAdd(layout: GsVtxLayout, index: Int, type: GsVtxAttribType, count: Int): Bool {
         return NativeGenesis.layoutAdd(layout, index, type, count);
@@ -482,6 +501,26 @@ class _Genesis {
 
     public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void {
         NativeGenesis.generateMipmaps(list, texture);
+    }
+
+    public static function useFramebuffer(list: GsCommandList, fb: GsFramebuffer): Void {
+        NativeGenesis.useFramebuffer(list, fb);
+    }
+
+    public static function hasCapability(cap: GsCapability): Int {
+        return NativeGenesis.hasCapability(cap);
+    }
+
+    public static function createFramebuffer(width: Int, height: Int): GsFramebuffer {
+        return NativeGenesis.createFramebuffer(width, height);
+    }
+
+    public static function destroyFramebuffer(fb: GsFramebuffer): Void {
+        NativeGenesis.destroyFramebuffer(fb);
+    }
+
+    public static function framebufferAttachTexture(fb: GsFramebuffer, texture: GsTexture, attachment: GsFramebufferAttachmentType): Void {
+        NativeGenesis.framebufferAttachTexture(fb, texture, attachment);
     }
 }
 typedef Genesis = _Genesis;

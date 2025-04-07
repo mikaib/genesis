@@ -53,6 +53,11 @@ private extern class NativeGsCommandList {
         return this;
     }
 
+    inline public function useFramebuffer(framebuffer: GsFramebuffer): GsCommandList {
+        Genesis.useFramebuffer(this, framebuffer);
+        return this;
+    }
+
     inline public function drawArrays(start: Int, count: Int): GsCommandList {
         Genesis.drawArrays(this, start, count);
         return this;

@@ -159,22 +159,24 @@ class Main {
         commandList.submit();
     }
 
+    public function loop() {
+        if (GLFW.glfwWindowShouldClose(window) == 1) {
+            destroy();
+            return;
+        }
+
+        frame();
+
+        Genesis.frame();
+        GLFW.glfwSwapBuffers(window);
+        GLFW.glfwPollEvents();
+    }
+
     public function init() {
         initWindow();
         initGraphics();
 
-        Genesis.startMainloop(() -> {
-            if (GLFW.glfwWindowShouldClose(window) == 1) {
-                destroy();
-                return;
-            }
-
-            frame();
-
-            Genesis.frame();
-            GLFW.glfwSwapBuffers(window);
-            GLFW.glfwPollEvents();
-        });
+        Genesis.startMainloop(loop);
     }
 
     public function destroy() {
