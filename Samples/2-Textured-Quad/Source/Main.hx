@@ -184,8 +184,8 @@ class Main {
         commandList.setViewport(0, 0, 600, 600);
         commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
         commandList.usePipeline(pipeline);
-        commandList.setInt(textureUniform, 0);
-        commandList.setInt(timeUniform, Std.int(Sys.time() * 1000));
+        commandList.setUniformInt(textureUniform, 0);
+        commandList.setUniformInt(timeUniform, Std.int(Sys.time() * 1000));
         commandList.useBuffer(vertexBuffer);
         commandList.useBuffer(indexBuffer);
         commandList.useTexture(texture, 0);

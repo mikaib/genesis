@@ -232,9 +232,6 @@ extern class Genesis {
     @:native('gs_generate_mipmaps') // As command
     public static function generateMipmaps(list: GsCommandList, texture: GsTexture): Void;
 
-    @:native('gs_use_framebuffer')
-    public static function useFramebuffer(list: GsCommandList, fb: GsFramebuffer): Void;
-
     @:native('gs_has_capability')
     public static function hasCapability(cap: GsCapability): Int;
 
@@ -243,6 +240,18 @@ extern class Genesis {
 
     @:native('gs_destroy_framebuffer')
     public static function destroyFramebuffer(fb: GsFramebuffer): Void;
+
+    @:native('gs_create_render_pass')
+    public static function createRenderPass(fb: GsFramebuffer): GsRenderPass;
+
+    @:native('gs_destroy_render_pass')
+    public static function destroyRenderPass(pass: GsRenderPass): Void;
+
+    @:native('gs_begin_render_pass')
+    public static function beginRenderPass(list: GsCommandList, pass: GsRenderPass): Void;
+
+    @:native('gs_end_render_pass')
+    public static function endRenderPass(list: GsCommandList): Void;
 
     @:native('gs_framebuffer_attach_texture')
     public static function framebufferAttachTexture(fb: GsFramebuffer, texture: GsTexture, attachment: GsFramebufferAttachmentType): Void;

@@ -53,8 +53,13 @@ private extern class NativeGsCommandList {
         return this;
     }
 
-    inline public function useFramebuffer(framebuffer: GsFramebuffer): GsCommandList {
-        Genesis.useFramebuffer(this, framebuffer);
+    inline public function beginRenderPass(pass: GsRenderPass): GsCommandList {
+        Genesis.beginRenderPass(this, pass);
+        return this;
+    }
+
+    inline public function endRenderPass(): GsCommandList {
+        Genesis.endRenderPass(this);
         return this;
     }
 
@@ -78,32 +83,32 @@ private extern class NativeGsCommandList {
         return this;
     }
 
-    inline public function setInt(location: GsUniformLocation, value: Int): GsCommandList {
+    inline public function setUniformInt(location: GsUniformLocation, value: Int): GsCommandList {
         Genesis.uniformSetInt(this, location, value);
         return this;
     }
 
-    inline public function setFloat(location: GsUniformLocation, value: Float): GsCommandList {
+    inline public function setUniformFloat(location: GsUniformLocation, value: Float): GsCommandList {
         Genesis.uniformSetFloat(this, location, value);
         return this;
     }
 
-    inline public function setVec2(location: GsUniformLocation, x: Float, y: Float): GsCommandList {
+    inline public function setUniformVec2(location: GsUniformLocation, x: Float, y: Float): GsCommandList {
         Genesis.uniformSetVec2(this, location, x, y);
         return this;
     }
 
-    inline public function setVec3(location: GsUniformLocation, x: Float, y: Float, z: Float): GsCommandList {
+    inline public function setUniformVec3(location: GsUniformLocation, x: Float, y: Float, z: Float): GsCommandList {
         Genesis.uniformSetVec3(this, location, x, y, z);
         return this;
     }
 
-    inline public function setVec4(location: GsUniformLocation, x: Float, y: Float, z: Float, w: Float): GsCommandList {
+    inline public function setUniformVec4(location: GsUniformLocation, x: Float, y: Float, z: Float, w: Float): GsCommandList {
         Genesis.uniformSetVec4(this, location, x, y, z, w);
         return this;
     }
 
-    inline public function setMat4(location: GsUniformLocation, m00: Float, m01: Float, m02: Float, m03: Float, m10: Float, m11: Float, m12: Float, m13: Float, m20: Float, m21: Float, m22: Float, m23: Float, m30: Float, m31: Float, m32: Float, m33: Float): GsCommandList {
+    inline public function setUniformMat4(location: GsUniformLocation, m00: Float, m01: Float, m02: Float, m03: Float, m10: Float, m11: Float, m12: Float, m13: Float, m20: Float, m21: Float, m22: Float, m23: Float, m30: Float, m31: Float, m32: Float, m33: Float): GsCommandList {
         Genesis.uniformSetMat4(
             this, location,
             m00, m01, m02, m03,
@@ -114,7 +119,7 @@ private extern class NativeGsCommandList {
         return this;
     }
 
-    inline public function setMat4Array(location: GsUniformLocation, data: Array<Float>): GsCommandList {
+    inline public function setUniformMat4Array(location: GsUniformLocation, data: Array<Float>): GsCommandList {
         Genesis.uniformSetMat4(
             this, location,
             data[0], data[1], data[2], data[3],

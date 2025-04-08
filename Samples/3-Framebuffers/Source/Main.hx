@@ -19,6 +19,7 @@ import genesis.GsFramebuffer;
 import genesis.GsFramebufferAttachmentType;
 import haxe.io.Path;
 import sys.io.File;
+import genesis.GsRenderPass;
 
 class Main {
 
@@ -75,8 +76,8 @@ class Main {
     public var texture: GsTexture;
     public var framebuffer1: GsFramebuffer;
     public var framebuffer1Color: GsTexture;
-    public var framebuffer2: GsFramebuffer;
-    public var framebuffer2Color: GsTexture;
+    public var framebuffer1Pass: GsRenderPass;
+    public var copyTexture: GsTexture;
 
     public function initWindow() {
         GLFW.glfwInit();
@@ -162,20 +163,19 @@ class Main {
         framebuffer1Color.clear();
         framebuffer1 = Genesis.createFramebuffer(600, 600);
         framebuffer1.attachTexture(framebuffer1Color, GS_FRAMEBUFFER_ATTACHMENT_COLOR);
+        framebuffer1Pass = Genesis.createRenderPass(framebuffer1);
 
-        // framebuffer 2
-        framebuffer2Color = Genesis.createTextureSimple(600, 600, GS_TEXTURE_FORMAT_RGBA8);
-        framebuffer2Color.clear();
-        framebuffer2 = Genesis.createFramebuffer(600, 600);
-        framebuffer2.attachTexture(framebuffer2Color, GS_FRAMEBUFFER_ATTACHMENT_COLOR);
+        // random texture to copy to
+        copyTexture = Genesis.createTextureSimple(600, 600, GS_TEXTURE_FORMAT_RGBA8);
+        copyTexture.clear();
     }
 
     public function destroyGraphics() {
         // destroy resources
-        framebuffer2.destroy();
-        framebuffer2Color.destroy();
+        copyTexture.destroy();
         framebuffer1.destroy();
         framebuffer1Color.destroy();
+        framebuffer1Pass.destroy();
         texture.destroy();
         commandList.destroy();
         pipeline.destroy();
@@ -195,22 +195,31 @@ class Main {
     }
 
     public function frame() {
+        // clears and begins the command list
         commandList.begin();
-        commandList.useFramebuffer(framebuffer1);
-        commandList.setViewport(0, 0, 600, 600);
-        commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
-        commandList.usePipeline(pipeline);
-        commandList.setInt(textureUniform, 0);
-        commandList.useBuffer(vertexBuffer);
-        commandList.useBuffer(indexBuffer);
-        commandList.useTexture(texture, 0);
-        commandList.drawIndexed(6);
-        commandList.copyTexture(framebuffer1Color, framebuffer2Color);
-        commandList.useFramebuffer(null);
-        commandList.setViewport(0, 0, 600, 600);
-        commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
-        commandList.useTexture(framebuffer2Color, 0);
-        commandList.drawIndexed(6);
+
+            // init state
+            commandList.setViewport(0, 0, 600, 600);
+            commandList.clear(GS_CLEAR_COLOR | GS_CLEAR_DEPTH);
+            commandList.useBuffer(vertexBuffer);
+            commandList.useBuffer(indexBuffer);
+            commandList.usePipeline(pipeline);
+            commandList.setUniformInt(textureUniform, 0);
+
+            // begin pass on framebuffer, will create a copy of the current state on a stack (framebuffer, pipeline, textures, viewport and buffers)
+            commandList.beginRenderPass(framebuffer1Pass);
+                commandList.setViewport(0, 0, framebuffer1.width, framebuffer1.height);
+                commandList.clear(GS_CLEAR_COLOR); // we only have a color attachment
+                commandList.useTexture(texture, 0);
+                commandList.drawIndexed(6);
+            commandList.endRenderPass(); // end the pass and pops from the stack (returns back to state before the pass)
+
+            // copy and then draw to main screen
+            commandList.copyTexture(framebuffer1Color, copyTexture);
+            commandList.useTexture(copyTexture, 0); // use the copied texture
+            commandList.drawIndexed(6);
+
+        // end the command list and submit it
         commandList.end();
         commandList.submit();
     }
