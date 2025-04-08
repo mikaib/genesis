@@ -1,0 +1,6 @@
+-xml Documentation/Autogen/doc.xml
+-D doc-gen
+-cp Source
+--macro include('genesis')
+--no-output
+--cpp Documentation/Autogen/bin
