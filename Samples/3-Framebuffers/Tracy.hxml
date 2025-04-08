@@ -1,0 +1,17 @@
+-L linc_glfw
+-L linc_stb
+-L genesis
+
+-D HXCPP_DEBUG_LINK
+-D HXCPP_M64
+-D HXCPP_TRACY
+-D HXCPP_TELEMETRY
+-D HXCPP_STACK_TRACE
+-D HXCPP_STACK_LINE
+-D HXCPP_TRACY_MEMORY
+-D HXCPP_TRACY_ON_DEMAND
+-D GS_STUB
+
+-cpp Binary/desktop
+-cp Source
+-main Main

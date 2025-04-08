@@ -512,12 +512,28 @@ class _Genesis {
         NativeGenesis.generateMipmaps(list, texture);
     }
 
-    public static function useFramebuffer(list: GsCommandList, fb: GsFramebuffer): Void {
-        NativeGenesis.useFramebuffer(list, fb);
+    public static function createRenderPass(fb: GsFramebuffer): GsRenderPass {
+        return NativeGenesis.createRenderPass(fb);
+    }
+
+    public static function destroyRenderPass(pass: GsRenderPass): Void {
+        NativeGenesis.destroyRenderPass(pass);
+    }
+
+    public static function beginRenderPass(list: GsCommandList, pass: GsRenderPass): Void {
+        NativeGenesis.beginRenderPass(list, pass);
+    }
+
+    public static function endRenderPass(list: GsCommandList): Void {
+        NativeGenesis.endRenderPass(list);
     }
 
     public static function hasCapability(cap: GsCapability): Int {
         return NativeGenesis.hasCapability(cap);
+    }
+
+    public static function textureClear(texture: GsTexture): Void {
+        NativeGenesis.textureClear(texture);
     }
 
     public static function createFramebuffer(width: Int, height: Int): GsFramebuffer {
