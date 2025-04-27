@@ -23,11 +23,19 @@
             <file name="${genesis_native}/genesis.c" />
             <file name="${genesis_native}/genesis_opengl.c" />
             <file name="${genesis_native}/glad/src/gl.c" if="windows" />
+
         </files>
 
         <target id="haxe">
             <compilerflag value="-I${genesis_native}" />
             <files id="genesis" />
+
+            <section if="android">
+                <lib name="-llog" />
+                <lib name="-landroid" />
+                <lib name="-lEGL" />
+                <lib name="-lGLESv2" />
+            </section>
         </target>
 
         <target id="haxe" tool="linker" toolid="exe" if="windows">
