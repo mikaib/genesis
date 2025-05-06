@@ -47,7 +47,7 @@ class Main {
 # 64-bit is recommended but not required.
 -D HXCPP_M64
 
-# Main class
+# Main.hx class
 -main Main
 
 # Output using C++
