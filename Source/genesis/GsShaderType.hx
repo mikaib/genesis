@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsShaderType')
+@:native('cpp.Struct<GsShaderType>')
 private extern class NativeGsShaderType {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')

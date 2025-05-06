@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsDepthFunc')
+@:native('cpp.Struct<GsDepthFunc>')
 private extern class NativeGsDepthFunc {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')

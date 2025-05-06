@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsTextureFilter')
+@:native('cpp.Struct<GsTextureFilter>')
 private extern class NativeGsTextureFilter {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')

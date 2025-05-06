@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsBufferIntent')
+@:native('cpp.Struct<GsBufferIntent>')
 private extern class NativeGsBufferIntent {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')

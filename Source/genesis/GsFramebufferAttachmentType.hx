@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsFramebufferAttachmentType')
+@:native('cpp.Struct<GsFramebufferAttachmentType>')
 private extern class NativeGsFramebufferAttachmentType {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')

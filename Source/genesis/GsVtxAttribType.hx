@@ -2,7 +2,7 @@ package genesis;
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
 @:include('genesis.h')
-@:native('GsVtxAttribType')
+@:native('cpp.Struct<GsVtxAttribType>')
 private extern class NativeGsVtxAttribType {}
 
 @:buildXml('<include name="${haxelib:genesis}/Source/Build.xml" />')
