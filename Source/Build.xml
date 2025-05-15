@@ -22,24 +22,37 @@
             <compilerflag value="-I${genesis_native}/glad/include" />
             <file name="${genesis_native}/genesis.c" />
             <file name="${genesis_native}/genesis_opengl.c" />
-            <file name="${genesis_native}/glad/src/gl.c" if="windows" />
+            <file name="${genesis_native}/glad/src/gl.c" if="windows || linux" />
 
+            <compilerflag value="-DGS_WAYLAND" if="GS_WAYLAND" />
+            <compilerflag value="-DGS_X11" if="GS_X11" />
         </files>
 
-        <target id="haxe">
+        <target id="haxe" if="android">
             <compilerflag value="-I${genesis_native}" />
             <files id="genesis" />
 
-            <section if="android">
-                <lib name="-llog" />
-                <lib name="-landroid" />
-                <lib name="-lEGL" />
-                <lib name="-lGLESv2" />
-            </section>
+            <lib name="-llog" />
+            <lib name="-landroid" />
+            <lib name="-lEGL" />
+            <lib name="-lGLESv2" />
         </target>
 
         <target id="haxe" tool="linker" toolid="exe" if="windows">
             <lib name="opengl32.lib" />
+        </target>
+
+        <target id="haxe" if="linux">
+            <compilerflag value="-I${genesis_native}" />
+            <files id="genesis" />
+
+            <section if="GS_WAYLAND">
+                <lib name="-lEGL" />
+                <lib name="-lwayland-client" />
+                <lib name="-lwayland-cursor" />
+                <lib name="-lwayland-egl" />
+                <lib name="-lxkbcommon" />
+            </section>
         </target>
 
         <linker id='exe' exe='em++' if="emscripten">
