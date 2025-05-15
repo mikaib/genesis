@@ -39,6 +39,9 @@
         </target>
 
         <target id="haxe" tool="linker" toolid="exe" if="windows">
+            <compilerflag value="-I${genesis_native}" />
+            <files id="genesis" />
+
             <lib name="opengl32.lib" />
         </target>
 
