@@ -58,6 +58,11 @@
             </section>
         </target>
 
+        <target id="haxe" if="emscripten">
+            <compilerflag value="-I${genesis_native}" />
+            <files id="genesis" />
+        </target>
+
         <linker id='exe' exe='em++' if="emscripten">
             <flag value='-s' />
             <flag value='WASM=1' />
