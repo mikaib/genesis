@@ -26,6 +26,7 @@
 
             <compilerflag value="-DGS_WAYLAND" if="GS_WAYLAND" />
             <compilerflag value="-DGS_X11" if="GS_X11" />
+            <compilerflag value="-DGS_ANDROID_GLES2" if="GS_ANDROID_GLES2" />
         </files>
 
         <target id="haxe" if="android">
@@ -35,7 +36,8 @@
             <lib name="-llog" />
             <lib name="-landroid" />
             <lib name="-lEGL" />
-            <lib name="-lGLESv2" />
+            <lib name="-lGLESv2" if="GS_ANDROID_GLES2" />
+            <lib name="-lGLESv3" unless="GS_ANDROID_GLES2" />
         </target>
 
         <target id="haxe" tool="linker" toolid="exe" if="windows">
@@ -67,6 +69,7 @@
             <flag value='-s' />
             <flag value='WASM=1' />
             <flag value='-sFULL_ES2' />
+            <flag value="-sFULL_ES3" if="GS_EMSCRIPTEN_GLES3" />
             <flag value='-sUSE_SDL=2' if="GS_EMSCRIPTEN_SDL2"/>
             <flag value="-sUSE_GLFW=3" if="GS_EMSCRIPTEN_GLFW" />
         </linker>
