@@ -1,6 +1,7 @@
 package genesis;
 
 import haxe.io.Bytes;
+import haxe.ds.Vector;
 
 private class GsManagedDataHolder {
     private var ptr: cpp.Star<cpp.Void>;
@@ -39,6 +40,18 @@ abstract GsManagedData(GsManagedDataHolder) {
     @:from
     public static inline function fromFloatArray(data: Array<cpp.Float32>): GsManagedData {
         final ptr: cpp.Pointer<cpp.Void> = cpp.Pointer.arrayElem(data, 0).reinterpret();
+        return new GsManagedData(ptr.ptr, data.length * 4);
+    }
+
+    @:from
+    public static inline function fromIntVector(data: Vector<Int>): GsManagedData {
+        final ptr: cpp.Pointer<cpp.Void> = cpp.Pointer.arrayElem(cast data.toData(), 0).reinterpret();
+        return new GsManagedData(ptr.ptr, data.length * 4);
+    }
+
+    @:from
+    public static inline function fromFloatVector(data: Vector<cpp.Float32>): GsManagedData {
+        final ptr: cpp.Pointer<cpp.Void> = cpp.Pointer.arrayElem(cast data.toData(), 0).reinterpret();
         return new GsManagedData(ptr.ptr, data.length * 4);
     }
 

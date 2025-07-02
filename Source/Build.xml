@@ -27,6 +27,7 @@
             <compilerflag value="-DGS_WAYLAND" if="GS_WAYLAND" />
             <compilerflag value="-DGS_X11" if="GS_X11" />
             <compilerflag value="-DGS_ANDROID_GLES2" if="GS_ANDROID_GLES2" />
+            <compilerflag value="-DGS_OPENGL_LOG_ERRORS" if="GS_OPENGL_LOG_ERRORS" />
         </files>
 
         <target id="haxe" if="android">

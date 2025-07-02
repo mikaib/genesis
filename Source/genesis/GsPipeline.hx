@@ -10,6 +10,7 @@ private extern class NativeGsPipeline {
     public var layout: GsVtxLayout;
     public var program: GsProgram;
     public var msaa_samples: Int;
+    public var primitive_type: GsPrimitiveType;
 
     // blend
     public var blend_op: GsBlendOp;
@@ -19,6 +20,10 @@ private extern class NativeGsPipeline {
     public var blend_src_alpha: GsBlendFactor;
     public var blend_dst_alpha: GsBlendFactor;
     public var blend_enabled: Int;
+
+    // cull
+    public var cull_face: Int;
+    public var cull_front: GsWindingDirection;
 
     // stencil
     public var stencil_test: Int;
