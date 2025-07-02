@@ -8,6 +8,7 @@ package genesis;
 private extern class NativeGsBuffer {
     public var type: GsBufferType;
     public var intent: GsBufferIntent;
+    public var size: Int; // can only represent ~2.14gb, should be enough for now
 
     inline public function setData(data: GsManagedData): Void {
         Genesis.bufferSetData(this, data);

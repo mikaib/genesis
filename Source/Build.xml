@@ -2,8 +2,6 @@
     <pragma once="true" />
     <set name="genesis_native" value="${haxelib:genesis}/Native" />
 
-    <echo value="GENESIS: ${genesis_native}" />
-
     <section>
         <files id="haxe">
             <compilerflag value="-I${genesis_native}" />
