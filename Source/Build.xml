@@ -19,6 +19,7 @@
             <compilerflag value="-I${genesis_native}" />
             <compilerflag value="-I${genesis_native}/glad/include" />
             <file name="${genesis_native}/genesis.c" />
+            <file name="${genesis_native}/genesis_noop.c" />
             <file name="${genesis_native}/genesis_opengl.c" />
             <file name="${genesis_native}/glad/src/gl.c" if="windows || linux" />
 

@@ -170,7 +170,7 @@ extern class Genesis {
     public static function createTexture(width: Int, height: Int, format: GsTextureFormat, wrapS: GsTextureWrap, wrapT: GsTextureWrap, min: GsTextureFilter, mag: GsTextureFilter): GsTexture;
 
     public static inline function createTextureSimple(width: Int, height: Int, format: GsTextureFormat): GsTexture {
-        return createTexture(width, height, format, GS_TEXTURE_WRAP_CLAMP, GS_TEXTURE_WRAP_CLAMP, GS_TEXTURE_FILTER_LINEAR, GS_TEXTURE_FILTER_LINEAR);
+        return createTexture(width, height, format, GS_TEXTURE_WRAP_REPEAT, GS_TEXTURE_WRAP_REPEAT, GS_TEXTURE_FILTER_LINEAR, GS_TEXTURE_FILTER_LINEAR);
     }
 
     @:native('gs_create_cubemap')
