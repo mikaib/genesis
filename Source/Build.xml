@@ -72,6 +72,7 @@
             <flag value="-sFULL_ES3" if="GS_EMSCRIPTEN_GLES3" />
             <flag value='-sUSE_SDL=2' if="GS_EMSCRIPTEN_SDL2"/>
             <flag value="-sUSE_GLFW=3" if="GS_EMSCRIPTEN_GLFW" />
+            <flag value="-sALLOW_MEMORY_GROWTH=1" />
         </linker>
     </section>
 </xml>
