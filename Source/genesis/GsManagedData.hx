@@ -23,6 +23,10 @@ private class GsManagedDataHolder {
     inline public function getSize(): Int {
         return size;
     }
+
+    inline public function setUnsafeSize(newSize: Int): Void {
+        size = newSize;
+    }
 }
 
 @:forward

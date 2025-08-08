@@ -58,6 +58,15 @@
                 <lib name="-lwayland-egl" />
                 <lib name="-lxkbcommon" />
             </section>
+
+            <section if="GS_X11">
+                <lib name="-lX11" />
+                <lib name="-lXcursor" />
+                <lib name="-lXrandr" />
+                <lib name="-lXinerama" />
+                <lib name="-lXi" />
+                <lib name="-lGL" />
+            </section>
         </target>
 
         <target id="haxe" if="emscripten">

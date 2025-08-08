@@ -12,20 +12,18 @@ class GenesisBuild {
             var useX11 = Context.defined("GS_X11");
 
             if (!useWayland && !useX11) {
-                var waylandCheckPs = new Process("echo", ["$WAYLAND_DISPLAY"]);
-                waylandCheckPs.exitCode(true);
+                var xorgCheckPs = new Process("sh", ["-c", "pgrep -x Xorg || pgrep -x Xwayland"]);
+                xorgCheckPs.exitCode(true);
 
-                var waylandCheckOut = waylandCheckPs.stdout.readAll().toString();
-                if (waylandCheckOut.length > 0) {
-                    Compiler.define("GS_WAYLAND");
-                    useWayland = true;
-
-                    Sys.println("[genesis] Auto-detected Wayland!");
-                } else {
+                var xorgCheckOut = xorgCheckPs.stdout.readAll().toString();
+                if (xorgCheckOut.length > 0) {
+                    Sys.println("[genesis] Auto-detected X11!");
                     Compiler.define("GS_X11");
                     useX11 = true;
-
-                    Sys.println("[genesis] No Wayland detected, falling back to X11!");
+                } else {
+                    Sys.println("[genesis] Auto-detected Wayland!");
+                    Compiler.define("GS_WAYLAND");
+                    useWayland = true;
                 }
             }
         }
