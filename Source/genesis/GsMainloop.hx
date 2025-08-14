@@ -14,7 +14,7 @@ class GsMainloop
 
     private static function call():Void
     {
-        #if (target.threaded && !GS_DISABLE_EVENTLOOP)
+        #if (target.threaded && GS_ENABLE_EVENTLOOP)
         Thread.current().events.progress();
         #end
 
