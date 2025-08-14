@@ -4,21 +4,30 @@ package genesis;
 import sys.thread.Thread;
 #end
 
-class GsMainloop {
+#if HXCPP_TRACY
+import cpp.vm.tracy.TracyProfiler;
+#end
 
-    private static var _func: Void->Void;
+class GsMainloop
+{
+    private static var _func:Void->Void;
 
-    private static function call(): Void {
-        #if (target.threaded)
+    private static function call():Void
+    {
+        #if (target.threaded && !GS_DISABLE_EVENTLOOP)
         Thread.current().events.progress();
         #end
 
         _func();
+
+        #if HXCPP_TRACY
+        TracyProfiler.frameMark();
+        #end
     }
 
-    public static function start(fun: Void->Void):Void {
+    public static function start(fun:Void->Void):Void
+    {
         _func = fun;
         @:privateAccess Genesis._createMainloop(cpp.Function.fromStaticFunction(GsMainloop.call));
     }
-
 }
