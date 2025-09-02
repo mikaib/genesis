@@ -34,10 +34,13 @@ private extern class NativeGsTexture {
         Genesis.textureGenerateMipmaps(this);
     }
 
+    inline public function update(): Void {
+        Genesis.textureUpdate(this);
+    }
+
     inline public function clear(): Void {
         Genesis.textureClear(this);
     }
-
 }
 
 typedef GsTexture = cpp.Star<NativeGsTexture>;

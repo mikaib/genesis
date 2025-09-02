@@ -193,6 +193,9 @@ extern class Genesis {
     @:native('gs_texture_clear')
     public static function textureClear(texture: GsTexture): Void;
 
+    @:native('gs_texture_update')
+    public static function textureUpdate(texture: GsTexture): Void;
+
     @:native('gs_texture_generate_mipmaps')
     public static function textureGenerateMipmaps(texture: GsTexture): Void; // As immediate command
 
@@ -534,6 +537,10 @@ class _Genesis {
 
     public static function textureClear(texture: GsTexture): Void {
         NativeGenesis.textureClear(texture);
+    }
+
+    public static function textureUpdate(texture: GsTexture): Void {
+        NativeGenesis.textureUpdate(texture);
     }
 
     public static function createFramebuffer(width: Int, height: Int): GsFramebuffer {
