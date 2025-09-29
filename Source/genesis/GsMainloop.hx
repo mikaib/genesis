@@ -4,7 +4,7 @@ package genesis;
 import sys.thread.Thread;
 #end
 
-#if HXCPP_TRACY
+#if (HXCPP_TRACY && haxe5)
 import cpp.vm.tracy.TracyProfiler;
 #end
 
@@ -20,7 +20,7 @@ class GsMainloop
 
         _func();
 
-        #if HXCPP_TRACY
+        #if (HXCPP_TRACY && haxe5)
         TracyProfiler.frameMark();
         #end
     }
